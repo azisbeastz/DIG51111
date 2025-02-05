@@ -76,36 +76,3 @@ grid on;
 % MATLAB will return the data in the original integer format with values like [-32768, 32767].
 
 %6)
-% Step 1: Read the audio file with 'native' argument
-[mono_audio_native, fs] = audioread('piano_middle_C.wav', 'native');  % Replace with your file path
-
-% Step 2: Normalize the audio to the range [-1, 1]
-% For int16, the range is from -32768 to 32767.
-max_val = double(intmax(class(mono_audio_native)));  % Get the maximum value for the native format (e.g., 32767 for int16)
-
-% Step 3: Normalize the audio
-normalized_audio = double(mono_audio_native) / max_val;  % Convert to double and normalize
-
-% Step 4: Verify the result (optional)
-% Plot the normalized audio signal
-t = (0:length(normalized_audio)-1) / fs;  % Time vector in seconds
-figure;
-plot(t, normalized_audio);
-xlabel('Time (s)');
-ylabel('Amplitude');
-title('Normalized Mono Audio Signal (Range [-1, 1])');
-grid on;
-
-% Step 5: Optionally, save the normalized audio to a new file (in double precision)
-audiowrite('normalized_piano_middle_C.wav', normalized_audio, fs);
-
-%7) 
-% Load an audio file
-[signal, fs] = audioread('piano_middle_C.wav');  % Replace with your file path
-
-% Calculate the RMS of the audio signal
-rms_value = rms(signal);
-
-% Display the result
-disp(['RMS value of the audio signal: ', num2str(rms_value)]);
-
